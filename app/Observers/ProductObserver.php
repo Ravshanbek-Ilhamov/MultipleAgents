@@ -12,7 +12,7 @@ class ProductObserver
      */
     public function created(Product $product): void
     {
-        Log::info('Product has been created at:' . now() . 'with ID:' . $product->id);
+        Log::info('Product has been created at:' . now() . ' with ID:' . $product->id);
     }
 
     /**
@@ -20,7 +20,7 @@ class ProductObserver
      */
     public function updated(Product $product): void
     {
-        Log::info('Product has been update at:' . now() . 'with ID:' . $product->id);
+        Log::info('Product has been update at:' . now() . ' with ID:' . $product->id);
     }
 
     /**
@@ -28,7 +28,7 @@ class ProductObserver
      */
     public function deleted(Product $product): void
     {
-        Log::info('Product has been deleted at:' . now() . 'with ID:' . $product->id);
+        Log::info('Product has been deleted at:' . now() . ' with ID:' . $product->id);
     }
 
     /**
@@ -36,7 +36,7 @@ class ProductObserver
      */
     public function restored(Product $product): void
     {
-        Log::info('Product has been restored at:' . now() . 'with ID:' . $product->id);
+        Log::info('Product has been restored at:' . now() . ' with ID:' . $product->id);
     }
 
     /**
@@ -44,6 +44,6 @@ class ProductObserver
      */
     public function forceDeleted(Product $product): void
     {
-        Log::info('Product has been forceDeleted at:' . now() . 'with ID:' . $product->id);
+        Log::info('Product has been forceDeleted at:' . now() . ' with ID:' . $product->id);
     }
 }
