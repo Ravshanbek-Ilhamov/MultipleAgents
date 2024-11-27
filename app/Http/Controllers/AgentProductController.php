@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agent;
 use App\Models\AgentProduct;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class AgentProductController extends Controller
@@ -12,7 +14,10 @@ class AgentProductController extends Controller
      */
     public function index()
     {
-        //
+        $agentproducts = AgentProduct::all();
+        $agents = Agent::all();
+        $products = Product::all();
+        return view('agentproduct.index',compact('agentproducts','agents','products'));
     }
 
     /**
@@ -50,16 +55,17 @@ class AgentProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AgentProduct $agentProduct)
+    public function update(Request $request, $id)
     {
-        //
+        $agentproduct = AgentProduct::findOrFail($id);
+        $agentproduct->update($request->all());
+        return redirect()->back()->with('success', 'Agent Product updated successfully.');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(AgentProduct $agentProduct)
+    
+    public function destroy($id)
     {
-        //
+        AgentProduct::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Agent Product deleted successfully.');
     }
+    
 }

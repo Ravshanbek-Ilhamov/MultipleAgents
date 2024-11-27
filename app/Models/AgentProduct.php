@@ -11,4 +11,12 @@ class AgentProduct extends Model
         'product_id',
         'price',
     ];
+
+    public function agents(){
+        return $this->belongsTo(Agent::class,'agent_id');
+    }
+
+    public function products(){
+        return $this->belongsTo(Product::class,'product_id');
+    }
 }

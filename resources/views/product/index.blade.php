@@ -22,6 +22,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="/products">Products</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/agent-products">Agent Product</a>
+                </li>
             </ul>
         </div>
     </div>

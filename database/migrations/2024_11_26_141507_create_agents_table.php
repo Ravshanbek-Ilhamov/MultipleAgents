@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->foreignId('parent_id')->nullable()->constrained('agents')->onDelete('cascade');
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->timestamps();
         });
     }

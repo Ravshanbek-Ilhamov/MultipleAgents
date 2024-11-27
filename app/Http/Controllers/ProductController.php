@@ -6,6 +6,7 @@ use App\Models\Agent;
 use App\Models\AgentProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -37,10 +38,35 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Product deleted successfully.');
     }
 
-    public function assign_agent(Request $request){
 
-        // dd($request->all());
-        AgentProduct::create($request->all());
-        return redirect()->back()->with('success', 'Product assigned successfully.');   
+    public function assign_agent(Request $request)
+    {
+        $request->validate([
+            'agent_id' => 'required|exists:agents,id',
+            'product_id' => 'required|exists:products,id',
+            'price' => 'required|numeric|min:0',
+        ]);
+    
+        DB::transaction(function () use ($request) {
+            $assignments = [[
+                'agent_id' => $request->agent_id,
+                'product_id' => $request->product_id,
+                'price' => $request->price,
+            ]];
+    
+            $childAgents = Agent::where('parent_id', $request->agent_id)->pluck('id');
+    
+            foreach ($childAgents as $childAgentId) {
+                $assignments[] = [
+                    'agent_id' => $childAgentId,
+                    'product_id' => $request->product_id,
+                    'price' => $request->price,
+                ];
+            }
+    
+            AgentProduct::insert($assignments);
+        });
+    
+        return redirect()->back()->with('success', 'Product assigned to agent and its children successfully.');
     }
 }
